@@ -1,5 +1,5 @@
-
-.box {
+.box 
+{
             display: inline-block;
             width: 200px;
             margin: 10px;
@@ -7,8 +7,9 @@
             border: 1px solid #ccc;
             text-align: center;
  }
-.box img {
+.box img 
+{
             max-width: 100%;
             height: auto;
-        }
+}
   
