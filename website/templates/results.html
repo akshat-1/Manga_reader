@@ -3,21 +3,21 @@
     %}
    
     <link rel="stylesheet" href="/static/style.css">
- 
+    <p> found {{n}} results</p>
+    
     <div class="content">
-        
-        <div class="box">
-            <a href="{{link[0]}}">
-                <img src="{{ img[0] }}">
-                <p>{{ text[0] }}</p>
-            </a>
-        </div>
-  
+
              <ul>{% for i in range(n) %}
                 <div class="box">
-                    <a href="{{ link[i] }}">
-                        <img src="{{ img[i] }}">
+                    <div class="link">
+                    <a href={{ link[i] }}>
                         <p>{{ text[i] }}</p>
+                        
+                    </div>
+                        <div class="image">
+                        <img src={{ img[i] }}>
+                        </div>
+
                     </a>
                 </div>
                 {% endfor %}

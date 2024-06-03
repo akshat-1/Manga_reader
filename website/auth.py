@@ -7,6 +7,8 @@ text =[]
 links =[]
 imgs =[]
 
+
+
 @auth.route('/home')
 def home():
     return render_template('home.html')
@@ -18,8 +20,9 @@ def sumbit():
         
         url = search_(user_input)
         text,links,imgs = get_search_result(url)
+      
         if(len(text) >=1):
-            return redirect(url_for('auth.results'))
+            return redirect(url_for('auth.results' , texts = text ,img = imgs , link = links , n = len(text)))
         else:
             flash('NO RESULTS FOUND! TRY SEARCHING SOMETHING ELSE')
 
@@ -28,8 +31,9 @@ def sumbit():
 
 @auth.route('/results')
 def results():
-    
-    return render_template("results.html", text = text , link = links , img = imgs, n = len(text))
+    linke = request.args.getlist('img')
+   
+    return render_template("results.html", text = request.args.getlist('texts') , img = request.args.getlist('img') , link = request.args.getlist('link'), n = int(request.args.get('n')))
    
 
 
