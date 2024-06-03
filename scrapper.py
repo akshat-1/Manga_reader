@@ -3,24 +3,32 @@ from bs4 import BeautifulSoup
 from flask import flash
 
 def search_(search) ->str:
-    return ("https://m.manganelo.com/search/story/" + search)
+    return (f"https://m.manganelo.com/search/story/{search}")
 
 
 
-def get_search_result(url) -> list:
+def get_search_result(url):
     response = requests.get(url) # here we are making http get request
     soup = BeautifulSoup(response.content , 'html.parser') #parsing the html content
     links= soup.find_all('a',{"class" : "item-img bookmark_check"} )
-    img = soup.find_all('img' , {"class" : "img-loading"})
-    # flash(f'{len(img)}')
-    # flash(f'{len(links)}')
-    results = []
-    i=0
-    for _  in links:
-        results.append([_.text,_['href'] , img[i]['src']])
-        i+=1
+    div= soup.find('div' , class_ ="panel-search-story" )
+    div2= div.find_all('div' , class_ ="search-story-item")
+    
+    
+    links2 = []
+    img2 = []
+    text2= []
    
-    return results
+   
+    for link  in links:
+        text2.append(link.get('title'))
+        links2.append(link.get('href'))   
+    for link in div2:
+        x = link.find('img')
+        img2.append(x.get('src'))  
+        
+   
+    return text2,links2,img2
 
 clicked_url = None
 def get_chapters(url) -> dict:

@@ -1,17 +1,29 @@
+
 {% extends "base.html" %} {% block title %}SEARCH RESULTS{% endblock %} {% block content
     %}
-    <head>
+   
     <link rel="stylesheet" href="/static/style.css">
-    </head>
-    <body>
-    {% for box in result %}
+ 
+    <div class="content">
+        
         <div class="box">
-            <a href="{{ box[1] }}">
-                <img src="{{ box[2] }}">
-                <p>{{ box[0] }}</p>
+            <a href="{{link[0]}}">
+                <img src="{{ img[0] }}">
+                <p>{{ text[0] }}</p>
             </a>
         </div>
-    {% endfor %}
+  
+             <ul>{% for i in range(n) %}
+                <div class="box">
+                    <a href="{{ link[i] }}">
+                        <img src="{{ img[i] }}">
+                        <p>{{ text[i] }}</p>
+                    </a>
+                </div>
+                {% endfor %}
+              </ul>
+    
+    </div>
 
-</body>
+
 {% endblock %}

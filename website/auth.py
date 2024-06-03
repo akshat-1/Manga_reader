@@ -3,7 +3,9 @@ from scrapper import *
 result = None
 auth = Blueprint('auth' , __name__)
 
-result = []
+text =[]
+links =[]
+imgs =[]
 
 @auth.route('/home')
 def home():
@@ -13,9 +15,10 @@ def home():
 def sumbit():
     if request.method == 'POST':
         user_input = str(request.form.get('search'))
+        
         url = search_(user_input)
-        result = get_search_result(url)
-        if(len(result) >=1):
+        text,links,imgs = get_search_result(url)
+        if(len(text) >=1):
             return redirect(url_for('auth.results'))
         else:
             flash('NO RESULTS FOUND! TRY SEARCHING SOMETHING ELSE')
@@ -25,28 +28,8 @@ def sumbit():
 
 @auth.route('/results')
 def results():
-    # if request.method == 'POST':
-    return render_template("results.html", result =result)
+    
+    return render_template("results.html", text = text , link = links , img = imgs, n = len(text))
+   
 
-# @auth.route('/sign-up')
-# def sign_up():
-#     if request.method == 'POST':
-#         email = request.form.get('email')
-#         firstname = request.form.get('firstname')
-#         password1 = request.form.get('passowrd1')
-#         password2 = request.form.get('passowrd2')
-
-#         if (len(email)) <4:
-#             flash('EMAIL MUST BE GREATER THAN 4 CHAR', category='error')
-#         elif len(firstname) <2:
-#            flash('first name must be greater than 2 char', category='error')
-#         elif len(password1 < 7):
-#             flash('password too short must be greater than 7 chars', category='error')
-#         elif password1 != password2:
-#             flash('passwords no not match', category='error')
-#         else:
-#             flash('SUCCESS!!!', category='success')
-
-
-#     return render_template("signup.html")
 
