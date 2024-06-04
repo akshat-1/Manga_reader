@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block title %}RESULTS{% endblock %} 
+{% block content %}
+<p> hi there!!</p>
+
+{%for i in range(n)%}
+<img src={{img[i]}} class="images">
+<br>
+{%endfor%}
+
+{% endblock %}

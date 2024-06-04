@@ -10,9 +10,10 @@
              <ul>{% for i in range(n) %}
                 <div class="box">
                     <div class="link">
-                    <a href={{ link[i] }}>
-                        <p>{{ text[i] }}</p>
-                        
+                        <p> {{text[i]}}</p>
+                        <form method="post">
+                        <input type="submit" name={{ link[i] }}, value="READ HERE">
+                        </form>      
                     </div>
                         <div class="image">
                         <img src={{ img[i] }}>

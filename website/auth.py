@@ -29,11 +29,31 @@ def sumbit():
 
     return render_template('sumbit.html')
 
-@auth.route('/results')
+@auth.route('/results', methods=['GET', 'POST'])
 def results():
-    linke = request.args.getlist('img')
+    if request.method == 'POST':
+        clicked_btn = list(request.form.keys())[0]
+        clicked_btn = str(clicked_btn[:-1])
+        lst,title = get_chapters(clicked_btn)
+        lst = lst[::-1]
+        title = title[::-1]
+        return redirect(url_for('auth.chapters', chap = lst,title = title ,n = len(lst)))
+
+    
    
     return render_template("results.html", text = request.args.getlist('texts') , img = request.args.getlist('img') , link = request.args.getlist('link'), n = int(request.args.get('n')))
    
 
+@auth.route('/chapters', methods=['GET', 'POST'])
+def chapters():
+    if request.method == 'POST':
+        url_manga = list(request.form.keys())[0]
+        manga = get_images(url_manga)
+        return redirect(url_for('auth.read_manga', images = manga, n = len(manga)))
+    
 
+    return render_template("chapters.html", link = request.args.getlist('chap'),title= request.args.getlist('title'), n = int(request.args.get('n')))
+
+@auth.route('/readmanga')
+def read_manga():
+    return render_template("read.html", img = request.args.getlist('images'), n = int(request.args.get('n')))

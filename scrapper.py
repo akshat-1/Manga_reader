@@ -31,24 +31,26 @@ def get_search_result(url):
     return text2,links2,img2
 
 clicked_url = None
-def get_chapters(url) -> dict:
+def get_chapters(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     chapters = soup.find_all('a', {"class": "chapter-name text-nowrap"})
-    links = {}
+    links = []
+    title =[]
     for chapter in chapters:
-        links[chapter.text] = chapter['href']
-    return links
+        links.append(chapter.get('href'))
+        title.append(chapter.get('title'))
+    return links,title
 
 def get_images(url) -> list:
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
-    div = soup.find('div', {"class":"container-chapter-reader"})
-    img = BeautifulSoup(div , 'html.parser').find_all("img")
+    img = soup.find_all('img', class_ ="reader-content")
     pages = []
-
+   
     for _ in img:
-        pages.append(_['src'])
+        pages.append(_.get('src'))
+
     return pages
 
 

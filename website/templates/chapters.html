@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block title %}CHAPTERS{% endblock %} 
+{% block content %}
+
+<link rel="stylesheet" href="/static/chap.css">
+<p> hi there!</p>
+{%for i in range(n)%}
+<form method="post" class="read-it">
+
+    <div class="click-to-read">
+
+        <p class="text">{{title[i]}}</p>
+    <input type="submit", value="click here" , name={{link[i]}}>
+    
+    </div>
+
+</form>
+<br>
+{%endfor%}
+
+{% endblock %}
+
