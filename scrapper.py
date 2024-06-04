@@ -1,6 +1,5 @@
 import requests 
 from bs4 import BeautifulSoup 
-from flask import flash
 
 def search_(search) ->str:
     return (f"https://m.manganelo.com/search/story/{search}")
