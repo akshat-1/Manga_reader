@@ -17,7 +17,7 @@ def home():
 def sumbit():
     if request.method == 'POST':
         user_input = str(request.form.get('search'))
-        
+        user_input = user_input.replace(" ", "_")
         url = search_(user_input)
         text,links,imgs = get_search_result(url)
       
@@ -49,11 +49,14 @@ def chapters():
     if request.method == 'POST':
         url_manga = list(request.form.keys())[0]
         manga = get_images(url_manga)
-        return redirect(url_for('auth.read_manga', images = manga, n = len(manga)))
+        
+        return redirect(url_for('auth.read_manga', images = manga, n = len(manga), url = url_manga))
     
 
     return render_template("chapters.html", link = request.args.getlist('chap'),title= request.args.getlist('title'), n = int(request.args.get('n')))
 
 @auth.route('/readmanga')
 def read_manga():
-    return render_template("read.html", img = request.args.getlist('images'), n = int(request.args.get('n')))
+    url = request.args.get('url')
+  
+    return render_template("read.html", img = request.args.getlist('images'), n = int(request.args.get('n')), url = request.args.get('url'))
