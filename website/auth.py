@@ -49,6 +49,7 @@ def chapters():
     if request.method == 'POST':
         url_manga = list(request.form.keys())[0]
         manga = get_images(url_manga)
+        #encode here to reduce size of url
         
         return redirect(url_for('auth.read_manga', images = manga, n = len(manga), url = url_manga))
     
